@@ -1,57 +1,15 @@
-// script.js
-const canvas = document.getElementById('cherryCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>봄날 인사</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <h1 class="greeting">안녕하세요&nbsp;표수연입니다.</h1>
 
-const mouse = { x: null, y: null };
-window.addEventListener('mousemove', e => {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
-
-const petals = [];
-const petalCount = 60;
-const petalImage = new Image();
-petalImage.src = 'https://cdn.pixabay.com/photo/2017/01/31/19/06/petals-2028730_1280.png';
-
-for (let i = 0; i < petalCount; i++) {
-  petals.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: 20 + Math.random() * 15,
-    speedX: Math.random() * 1 - 0.5,
-    speedY: 1 + Math.random() * 2,
-    drift: Math.random() * 3,
-  });
-}
-
-function drawPetals() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < petalCount; i++) {
-    const p = petals[i];
-
-    // 마우스를 피해가는 동작
-    const dx = p.x - mouse.x;
-    const dy = p.y - mouse.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    if (distance < 100) {
-      p.x += dx / distance * 2;
-      p.y += dy / distance * 2;
-    }
-
-    ctx.drawImage(petalImage, p.x, p.y, p.size, p.size);
-    p.x += p.speedX;
-    p.y += p.speedY;
-
-    if (p.y > canvas.height) {
-      p.y = -20;
-      p.x = Math.random() * canvas.width;
-    }
-  }
-  requestAnimationFrame(drawPetals);
-}
-
-petalImage.onload = () => {
-  drawPetals();
-};
+  <!-- 벚꽃들을 담을 레이어 -->
+  <div id="blossom-layer"></div>
+</body>
+</html>
