@@ -1,0 +1,52 @@
+/* ===== 기본 배경 & 제목 ===== */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;               /* 스크롤 숨기기 */
+  background: linear-gradient(#b6e0ff 0%, #eaf6ff 40%, #ffffff 100%);
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.greeting {
+  position: absolute;
+  top: 40vh;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: #ff6392;                 /* 화사한 분홍 */
+  text-shadow: 0 0 10px rgba(255, 255, 255, .8);
+  pointer-events: none;           /* 텍스트에 마우스 안 걸리게 */
+}
+
+/* ===== 벚꽃 공통 ===== */
+#blossom-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;           /* 전체 레이어도 클릭 방해 X */
+}
+
+.blossom {
+  position: absolute;
+  top: -10vh;                     /* 살짝 위에서 시작 */
+  font-size: 24px;                /* 기본 크기 */
+  will-change: transform;         /* 성능 최적화 */
+  animation: fall var(--duration) linear infinite;
+}
+
+.blossom.large  { font-size: 36px; }
+.blossom.small  { font-size: 16px; }
+
+/* 떨어지는 애니메이션: 천천히 좌우로 흔들리며 ↓ */
+@keyframes fall {
+  0% {
+    transform: translateX(var(--start-x)) translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  5%  { opacity: 1; }
+  50% { transform: translateX(calc(var(--start-x) + var(--sway))) translateY(50vh) rotate(180deg); }
+  100%{
+    transform: translateX(calc(var(--start-x) + var(--sway) * 2)) translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
